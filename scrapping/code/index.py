@@ -36,7 +36,9 @@ data_detail = {
 # Scraping Data Utama (Arabica & Robusta)
 for sheet_name, url in urls.items():
     driver.get(url)
-    time.sleep(5)  # Tunggu halaman termuat
+    # time.sleep(5)  # Tunggu halaman termuat
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "table")))
+
 
     all_rows = []  # Simpan semua data utama
     id_links = []  # Simpan ID & Link detail
@@ -134,6 +136,11 @@ for sheet_name, url in urls.items():
             data_detail["Certification Information"].append(cert_info)
 
             print(f"✅ Data detail ID {id_text} berhasil diambil!")
+            print(sample_info)
+            print(cupping_scores)
+            print(green_analysis)
+            print(cert_info)
+
 
         except Exception as e:
             print(f"❌ Gagal mengambil data detail ID {id_text}: {e}")
